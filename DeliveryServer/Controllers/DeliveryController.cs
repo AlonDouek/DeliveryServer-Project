@@ -38,7 +38,7 @@ namespace DeliveryServer.Controllers
 
                 return user;
             }
-            else
+            else/
             {
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;

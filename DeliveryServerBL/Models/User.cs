@@ -12,5 +12,7 @@ namespace DeliveryServerBL.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserPswd { get; set; }
+        
+       
     }
 }

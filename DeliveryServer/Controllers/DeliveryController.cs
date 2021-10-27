@@ -27,22 +27,50 @@ namespace DeliveryServer.Controllers
 
         [Route("Login")]
         [HttpGet]
-        public User Login([FromQuery] string email, [FromQuery] string pass)
+        public UserDTO Login([FromQuery] string email, [FromQuery] string pass)
         {
-            User user = context.Login(email, pass);
-            if (user != null)
+            User u = context.Login(email, pass);
+            if (u != null)
             {
-                HttpContext.Session.SetObject("theUser", user);
+
+                UserDTO uDTO = new UserDTO(u);
+
+                HttpContext.Session.SetObject("theUser", u);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                return user;
+                return u;
             }
             else
             {
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return null; 
+            }
+        }
+
+        [Route("SignUp")]
+        [HttpGet]
+        public UserDTO Register([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string email, [FromQuery] DateTime dt, [FromQuery] string username, [FromQuery] string password)
+        {
+            UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
+            //Check if user logged in!
+            if (uDto == null)
+            {
+                //IN THE DB CONTEXT
+                User p = context.SignUp(firstName, lastName, email, password);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+
+                if (p != null)
+                    return new UserDTO(p);
+                else
+                    return null;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
             }
         }
 

@@ -16,13 +16,30 @@ namespace DeliveryServerBL.Models
             //
             return user;
         }
-        public User SignUp(string email, string pswd , string lName,string fname) // add the later values when added
+        public User SignUp(string email, string pswd, string lName, string fname) // add the later values when added
         {
-            // User user; 
-            //  this.Users.Add
-            //
-            //return user;
-            return null;
+
+            try
+            {
+                User p = new User()
+                {
+                    FirstName = fname,
+                    LastName = lName,
+                    Email = email,
+                    UserPswd = pswd
+                };
+
+                this.Add(p);
+                this.SaveChanges();
+
+                return p;
+            }
+            catch
+            {
+                return null;
+            }
+
+        
         }
     }
 }

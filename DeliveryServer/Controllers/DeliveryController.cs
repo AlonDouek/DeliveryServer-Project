@@ -39,7 +39,7 @@ namespace DeliveryServer.Controllers
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                return u;
+                return uDTO;
             }
             else
             {
@@ -51,13 +51,13 @@ namespace DeliveryServer.Controllers
 
         [Route("SignUp")]
         [HttpGet]
-        public UserDTO Register([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string email, [FromQuery] DateTime dt, [FromQuery] string username, [FromQuery] string password)
+        public UserDTO SignUp([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string email, [FromQuery] DateTime dt, [FromQuery] string username, [FromQuery] string password)
         {
             UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
             //Check if user logged in!
             if (uDto == null)
             {
-                //IN THE DB CONTEXT
+               
                 User p = context.SignUp(firstName, lastName, email, password);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
@@ -74,6 +74,6 @@ namespace DeliveryServer.Controllers
             }
         }
 
-        //add signup controller and other staff for the sign in
+
     }
 }

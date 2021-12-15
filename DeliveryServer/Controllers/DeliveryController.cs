@@ -51,7 +51,7 @@ namespace DeliveryServer.Controllers
 
         [Route("SignUp")]
         [HttpGet]
-        public UserDTO SignUp([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string email, [FromQuery] DateTime dt, [FromQuery] string username, [FromQuery] string password)
+        public UserDTO SignUp([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string email, [FromQuery] string username, [FromQuery] string password)
         {
             UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
             //Check if user logged in!

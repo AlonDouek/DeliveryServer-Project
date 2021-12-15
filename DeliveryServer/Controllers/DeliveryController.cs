@@ -74,6 +74,12 @@ namespace DeliveryServer.Controllers
             }
         }
 
+        [Route("ChangeInfo")]
+        [HttpGet]
+        public void ChangeInfo([FromQuery] string email)
+        {
+
+        }
 
     }
 }

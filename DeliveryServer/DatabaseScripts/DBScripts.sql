@@ -5,73 +5,119 @@ Go
 Use DeliveryDB
 Go
 
-
-CREATE TABLE "Dishes"(
-    "DishID" INT NOT NULL,
-    "IDMenu" INT NOT NULL,
-    "contents" NVARCHAR(255) NOT NULL,
-    "DishRating" FLOAT NOT NULL
-);
-ALTER TABLE
-    "Dishes" ADD CONSTRAINT "dishes_dishid_primary" PRIMARY KEY("DishID");
-CREATE TABLE "Menus"(
-    "IDMenu" INT NOT NULL,
-    "dishes(idk if needed here)" NVARCHAR(255) NOT NULL,
-    "RestaurantID" INT NOT NULL
-);
-ALTER TABLE
-    "Menus" ADD CONSTRAINT "menus_idmenu_primary" PRIMARY KEY("IDMenu");
-CREATE TABLE "restaurants"(
-    "idRestaurant" INT NOT NULL,
-    "Name" NVARCHAR(255) NOT NULL,
-    "aboutRestaurant" NVARCHAR(255) NOT NULL,
-    "Location" NVARCHAR(255) NOT NULL,
-    "phoneNumber" NCHAR(255) NOT NULL,
-    "Rating" FLOAT NOT NULL
-);
-ALTER TABLE
-    "restaurants" ADD CONSTRAINT "restaurants_idrestaurant_primary" PRIMARY KEY("idRestaurant");
-CREATE TABLE "Orders"(
-    "OrderID" INT NOT NULL,
-    "UserID" INT NOT NULL,
-    "OrderDate" DATE NOT NULL
-);
-ALTER TABLE
-    "Orders" ADD CONSTRAINT "orders_orderid_primary" PRIMARY KEY("OrderID");
-CREATE TABLE "DishesOrders"(
-    "IDOrderDish" INT NOT NULL,
-    "DishID" INT NOT NULL,
-    "OrderID" INT NOT NULL
-);
-ALTER TABLE
-    "DishesOrders" ADD CONSTRAINT "dishesorders_idorderdish_primary" PRIMARY KEY("IDOrderDish");
-CREATE TABLE "Users"(
+CREATE TABLE "User"(
     "UserID" INT NOT NULL,
     "Email" NVARCHAR(255) NOT NULL,
-    "UserName" NVARCHAR(255) NOT NULL,
+    "Username" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,
-    "TypeID" INT NOT NULL,
-    "idRestaurant" INT NULL
+    "Address" NVARCHAR(255) NOT NULL,
+    "PhoneNumber" INT NOT NULL,
+    "CreditCard" INT NOT NULL
+);
+CREATE INDEX "user_userid_index" ON
+    "User"("UserID");
+ALTER TABLE
+    "User" ADD CONSTRAINT "user_userid_primary" PRIMARY KEY("UserID");
+CREATE UNIQUE INDEX "user_email_unique" ON
+    "User"("Email");
+CREATE UNIQUE INDEX "user_phonenumber_unique" ON
+    "User"("PhoneNumber");
+CREATE TABLE "OrderStatus"(
+    "StatusID" INT NOT NULL,
+    "Name" NVARCHAR(255) NOT NULL
+);
+CREATE INDEX "orderstatus_statusid_index" ON
+    "OrderStatus"("StatusID");
+ALTER TABLE
+    "OrderStatus" ADD CONSTRAINT "orderstatus_statusid_primary" PRIMARY KEY("StatusID");
+CREATE TABLE "Order"(
+    "OrderID" INT NOT NULL,
+    "UserID" INT NOT NULL,
+    "StatusID" INT NOT NULL,
+    "Price" DECIMAL(8, 2) NOT NULL,
+    "Note" NVARCHAR(255) NOT NULL
+);
+CREATE INDEX "order_orderid_index" ON
+    "Order"("OrderID");
+CREATE INDEX "order_userid_index" ON
+    "Order"("UserID");
+CREATE INDEX "order_statusid_index" ON
+    "Order"("StatusID");
+ALTER TABLE
+    "Order" ADD CONSTRAINT "order_orderid_primary" PRIMARY KEY("OrderID");
+CREATE TABLE "OrderItem"(
+    "ItemID" INT NOT NULL,
+    "OrderID" INT NOT NULL,
+    "MenuItemID" INT NOT NULL,
+    "Amount" INT NOT NULL
+);
+CREATE INDEX "orderitem_itemid_index" ON
+    "OrderItem"("ItemID");
+CREATE INDEX "orderitem_orderid_index" ON
+    "OrderItem"("OrderID");
+CREATE INDEX "orderitem_menuitemid_index" ON
+    "OrderItem"("MenuItemID");
+ALTER TABLE
+    "OrderItem" ADD CONSTRAINT "orderitem_itemid_primary" PRIMARY KEY("ItemID");
+CREATE TABLE "Restaurant"(
+    "RestaurantID" INT NOT NULL,
+    "MenuID" INT NOT NULL,
+    "Name" NVARCHAR(255) NOT NULL,
+    "Description" INT NOT NULL,
+    "OpeningHours" TIME NOT NULL,
+    "ClosingHours" TIME NOT NULL
+);
+CREATE INDEX "restaurant_restaurantid_index" ON
+    "Restaurant"("RestaurantID");
+CREATE INDEX "restaurant_menuid_index" ON
+    "Restaurant"("MenuID");
+ALTER TABLE
+    "Restaurant" ADD CONSTRAINT "restaurant_restaurantid_primary" PRIMARY KEY("RestaurantID");
+CREATE UNIQUE INDEX "restaurant_name_unique" ON
+    "Restaurant"("Name");
+CREATE TABLE "Menu"(
+    "MenuID" INT NOT NULL,
+    "RestaurantID" INT NOT NULL,
+    "Name" NVARCHAR(255) NULL
 );
 ALTER TABLE
-    "Users" ADD CONSTRAINT "users_userid_primary" PRIMARY KEY("UserID");
-CREATE TABLE "UserType"(
-    "TypeID" INT NOT NULL,
-    "TypeName" NVARCHAR(255) NOT NULL
+    "Menu" ADD CONSTRAINT "menu_menuid_primary" PRIMARY KEY("MenuID");
+CREATE TABLE "MenuCatagory"(
+    "CatagoryID" INT NOT NULL,
+    "MenuID" INT NOT NULL,
+    "Name" INT NOT NULL
 );
+CREATE INDEX "menucatagory_catagoryid_index" ON
+    "MenuCatagory"("CatagoryID");
+CREATE INDEX "menucatagory_menuid_index" ON
+    "MenuCatagory"("MenuID");
 ALTER TABLE
-    "UserType" ADD CONSTRAINT "usertype_typeid_primary" PRIMARY KEY("TypeID");
+    "MenuCatagory" ADD CONSTRAINT "menucatagory_catagoryid_primary" PRIMARY KEY("CatagoryID");
+CREATE TABLE "MenuItem"(
+    "MenuItemID" INT NOT NULL,
+    "CatagoryID" INT NOT NULL,
+    "Name" NVARCHAR(255) NOT NULL,
+    "Description" INT NOT NULL,
+    "Price" DECIMAL(8, 2) NOT NULL,
+    "Image" NVARCHAR(255) NULL
+);
+CREATE INDEX "menuitem_menuitemid_index" ON
+    "MenuItem"("MenuItemID");
+CREATE INDEX "menuitem_catagoryid_index" ON
+    "MenuItem"("CatagoryID");
 ALTER TABLE
-    "DishesOrders" ADD CONSTRAINT "dishesorders_dishid_foreign" FOREIGN KEY("DishID") REFERENCES "Dishes"("DishID");
+    "MenuItem" ADD CONSTRAINT "menuitem_menuitemid_primary" PRIMARY KEY("MenuItemID");
 ALTER TABLE
-    "Menus" ADD CONSTRAINT "menus_restaurantid_foreign" FOREIGN KEY("RestaurantID") REFERENCES "restaurants"("idRestaurant");
+    "Order" ADD CONSTRAINT "order_statusid_foreign" FOREIGN KEY("StatusID") REFERENCES "OrderStatus"("StatusID");
 ALTER TABLE
-    "Dishes" ADD CONSTRAINT "dishes_idmenu_foreign" FOREIGN KEY("IDMenu") REFERENCES "Menus"("IDMenu");
+    "Order" ADD CONSTRAINT "order_userid_foreign" FOREIGN KEY("UserID") REFERENCES "User"("UserID");
 ALTER TABLE
-    "DishesOrders" ADD CONSTRAINT "dishesorders_orderid_foreign" FOREIGN KEY("OrderID") REFERENCES "Orders"("OrderID");
+    "Restaurant" ADD CONSTRAINT "restaurant_menuid_foreign" FOREIGN KEY("MenuID") REFERENCES "Menu"("MenuID");
 ALTER TABLE
-    "Orders" ADD CONSTRAINT "orders_userid_foreign" FOREIGN KEY("UserID") REFERENCES "Users"("UserID");
+    "Menu" ADD CONSTRAINT "menu_restaurantid_foreign" FOREIGN KEY("RestaurantID") REFERENCES "Restaurant"("RestaurantID");
 ALTER TABLE
-    "Users" ADD CONSTRAINT "users_idrestaurant_foreign" FOREIGN KEY("idRestaurant") REFERENCES "restaurants"("idRestaurant");
+    "MenuCatagory" ADD CONSTRAINT "menucatagory_menuid_foreign" FOREIGN KEY("MenuID") REFERENCES "Menu"("MenuID");
 ALTER TABLE
-    "Users" ADD CONSTRAINT "users_typeid_foreign" FOREIGN KEY("TypeID") REFERENCES "UserType"("TypeID");
+    "OrderItem" ADD CONSTRAINT "orderitem_menuitemid_foreign" FOREIGN KEY("MenuItemID") REFERENCES "MenuItem"("MenuItemID");
+ALTER TABLE
+    "MenuItem" ADD CONSTRAINT "menuitem_catagoryid_foreign" FOREIGN KEY("CatagoryID") REFERENCES "MenuCatagory"("CatagoryID");

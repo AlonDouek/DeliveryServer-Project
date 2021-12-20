@@ -121,3 +121,8 @@ ALTER TABLE
     "OrderItem" ADD CONSTRAINT "orderitem_menuitemid_foreign" FOREIGN KEY("MenuItemID") REFERENCES "MenuItem"("MenuItemID");
 ALTER TABLE
     "MenuItem" ADD CONSTRAINT "menuitem_catagoryid_foreign" FOREIGN KEY("CatagoryID") REFERENCES "MenuCatagory"("CatagoryID");
+    
+INSERT INTO OrderStatus (Name)
+VALUES ('Ordered'), ('Preparing'), ('Delivering'), ('Finished')
+    
+    

@@ -1,5 +1,5 @@
-﻿using DeliveryServer.ModelsBL;
-using DeliveryServerBL.Models;
+﻿using DeliveryServer.Models;
+using DeliveryServer.ModelsBL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -53,14 +53,14 @@ namespace DeliveryServer.Controllers
 
         [Route("SignUp")]
         [HttpGet]
-        public UserDTO SignUp([FromQuery] string Username, [FromQuery] string email, [FromQuery] string username, [FromQuery] string password)
+        public UserDTO SignUp([FromQuery] string Username, [FromQuery] string email, [FromQuery] string username, [FromQuery] string password, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
         {
             UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
 
             if (uDto == null)
             {
                
-                User p = context.SignUp(Username, email, password);
+                User p = context.SignUp(Username, email, password, Address, PhoneNumber, CreditCard);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 

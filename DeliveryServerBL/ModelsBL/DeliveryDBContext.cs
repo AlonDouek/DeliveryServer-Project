@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeliveryServer.ModelsBL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using DeliveryServerBL.Models;
 
-namespace DeliveryServerBL.Models
+
+namespace DeliveryServer.Models
 {
     public partial class DeliveryDBContext : DbContext
     {
@@ -18,7 +17,7 @@ namespace DeliveryServerBL.Models
             //
             return user;
         }
-        public User SignUp(string email, string pswd, string UserName) // add the later values when added
+        public User SignUp(string email, string pswd, string UserName, string Address, string PhoneNumber, string CreditCard) // add the later values when added
         {
 
             try
@@ -27,7 +26,11 @@ namespace DeliveryServerBL.Models
                 {
                     Username = UserName,
                     Email = email,
-                    Password = pswd
+                    Password = pswd,
+                    Address = Address,
+                    PhoneNumber = PhoneNumber,
+                    CreditCard = CreditCard
+
                 };
 
                 this.Add(p);

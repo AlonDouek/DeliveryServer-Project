@@ -11,7 +11,7 @@ CREATE TABLE "User"(
     "Username" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,
     "Address" NVARCHAR(255) NOT NULL,
-    "PhoneNumber" INT NOT NULL,
+    "PhoneNumber" NVARCHAR(255) NOT NULL,
     "CreditCard" NVARCHAR(255) NOT NULL
 );
 CREATE INDEX "user_userid_index" ON

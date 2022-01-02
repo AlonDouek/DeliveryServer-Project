@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DeliveryServer.ModelsBL
+namespace DeliveryServer.Models
 {
     public partial class OrderItem
     {

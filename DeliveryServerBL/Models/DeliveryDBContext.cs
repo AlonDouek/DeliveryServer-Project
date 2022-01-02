@@ -1,11 +1,10 @@
 ﻿using System;
-using DeliveryServer.ModelsBL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace DeliveryServerBL.Models
+namespace DeliveryServer.Models
 {
     public partial class DeliveryDBContext : DbContext
     {
@@ -243,11 +242,19 @@ namespace DeliveryServerBL.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
+                entity.Property(e => e.CreditCard)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(255);
 
                 entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(255);
 

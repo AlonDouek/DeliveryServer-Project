@@ -53,7 +53,7 @@ namespace DeliveryServer.Controllers
 
         [Route("SignUp")]
         [HttpGet]
-        public UserDTO SignUp([FromQuery] string Username, [FromQuery] string email, [FromQuery] string username, [FromQuery] string password, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
+        public UserDTO SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
         {
             UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
 

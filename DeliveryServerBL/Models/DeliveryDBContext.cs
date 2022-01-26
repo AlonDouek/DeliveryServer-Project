@@ -1,10 +1,11 @@
 ﻿using System;
+using DeliveryServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace DeliveryServer.Models
+namespace DeliveryServerBL.Models
 {
     public partial class DeliveryDBContext : DbContext
     {

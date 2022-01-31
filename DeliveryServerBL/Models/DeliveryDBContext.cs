@@ -1,5 +1,5 @@
 ﻿using System;
-using DeliveryServer.Models;
+using DeliveryServerBL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

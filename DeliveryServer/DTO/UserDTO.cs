@@ -1,10 +1,11 @@
-﻿using DeliveryServer.Models;
+﻿
+using DeliveryServerBL.Models;
 using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace DeliveryServer.ModelsBL
+namespace DeliveryServer.DTO
 {
     public partial class UserDTO
     {

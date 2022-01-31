@@ -1,12 +1,13 @@
-﻿using DeliveryServer.Models;
-using DeliveryServer.ModelsBL;
-using DeliveryServerBL.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DeliveryServer.DTO;
+using DeliveryServerBL.Models;
+using System.IO;
+
 
 namespace DeliveryServer.Controllers
 {
@@ -28,26 +29,25 @@ namespace DeliveryServer.Controllers
 
 
         [Route("Login")]
-        [HttpGet]
-        public UserDTO Login([FromQuery] string email, [FromQuery] string pass)
+        [HttpPost]
+        public User Login([FromBody] LogInDTO logInDTO)
         {
+            string email = logInDTO.Email;
+            string pass = logInDTO.Password;
             User u = context.Login(email, pass);
             if (u != null)
             {
-
-                UserDTO uDTO = new UserDTO(u);
-
                 HttpContext.Session.SetObject("theUser", u);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                return uDTO;
+                return u;
             }
             else
             {
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return null; 
+                return null;
             }
         }
 

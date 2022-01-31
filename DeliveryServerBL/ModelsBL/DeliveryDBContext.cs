@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeliveryServer.Models;
+using DeliveryServerBL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -17,6 +17,7 @@ namespace DeliveryServerBL.Models
             User user = this.Users.Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
             //
             return user;
+
         }
         public User SignUp(string email, string pswd, string UserName, string Address, string PhoneNumber, string CreditCard) // add the later values when added
         {

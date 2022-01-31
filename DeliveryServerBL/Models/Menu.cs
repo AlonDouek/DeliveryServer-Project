@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DeliveryServerBL.Models;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace DeliveryServer.Models
+namespace DeliveryServerBL.Models
 {
     public partial class Menu
     {

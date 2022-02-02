@@ -27,21 +27,46 @@ namespace DeliveryServer.Controllers
         //<binding protocol="http" bindingInformation="*:16340:127.0.0.1" />
         //<binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
 
+        #region d
+        //[Route("Login")]
+        //[HttpPost]
+        //public User Login([FromBody] LogInDTO logInDTO)
+        //{
+        //    string email = logInDTO.Email;
+        //    string pass = logInDTO.Password;
+        //    User u = context.Login(email, pass);
+        //    if (u != null)
+        //    {
+        //        HttpContext.Session.SetObject("theUser", u);
+
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+
+        //        return u;
+        //    }
+        //    else
+        //    {
+
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+        //        return null;
+        //    }
+        //}
+        #endregion
 
         [Route("Login")]
-        [HttpPost]
-        public User Login([FromBody] LogInDTO logInDTO)
+        [HttpGet]
+        public User Login([FromQuery] string email, [FromQuery] string pass)
         {
-            string email = logInDTO.Email;
-            string pass = logInDTO.Password;
-            User u = context.Login(email, pass);
-            if (u != null)
+            User user = context.Login(email, pass);
+
+            //Check user name and password
+            if (user != null)
             {
-                HttpContext.Session.SetObject("theUser", u);
+                HttpContext.Session.SetObject("theUser", user);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                return u;
+                //Important! Due to the Lazy Loading, the user will be returned with all of its contects!!
+                return user;
             }
             else
             {
@@ -53,9 +78,9 @@ namespace DeliveryServer.Controllers
 
         [Route("SignUp")]
         [HttpGet]
-        public UserDTO SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
+        public User SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
         {
-            UserDTO uDto = HttpContext.Session.GetObject<UserDTO>("user");
+            User uDto = HttpContext.Session.GetObject<User>("user");
 
             if (uDto == null)
             {
@@ -65,7 +90,7 @@ namespace DeliveryServer.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
                 if (p != null)
-                    return new UserDTO(p);
+                    return new User(p);
                 else
                     return null;
             }

@@ -11,6 +11,7 @@ namespace DeliveryServerBL.Models
         {
             Orders = new HashSet<Order>();
         }
+        
 
         public int UserId { get; set; }
         public string Email { get; set; }

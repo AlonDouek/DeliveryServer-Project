@@ -24,33 +24,10 @@ namespace DeliveryServer.Controllers
         #endregion
 
         //do the thing in the config to make it work
-        //<binding protocol="http" bindingInformation="*:16340:127.0.0.1" />
+        //<binding protocol = "http" bindingInformation="*:16340:127.0.0.1" />
         //<binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
 
-        #region d
-        //[Route("Login")]
-        //[HttpPost]
-        //public User Login([FromBody] LogInDTO logInDTO)
-        //{
-        //    string email = logInDTO.Email;
-        //    string pass = logInDTO.Password;
-        //    User u = context.Login(email, pass);
-        //    if (u != null)
-        //    {
-        //        HttpContext.Session.SetObject("theUser", u);
-
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-
-        //        return u;
-        //    }
-        //    else
-        //    {
-
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-        //        return null;
-        //    }
-        //}
-        #endregion
+        
 
         [Route("Login")]
         [HttpGet]
@@ -58,14 +35,12 @@ namespace DeliveryServer.Controllers
         {
             User user = context.Login(email, pass);
 
-            //Check user name and password
             if (user != null)
             {
                 HttpContext.Session.SetObject("theUser", user);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                //Important! Due to the Lazy Loading, the user will be returned with all of its contects!!
                 return user;
             }
             else
@@ -89,10 +64,7 @@ namespace DeliveryServer.Controllers
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
-                if (p != null)
-                    return new User(p);
-                else
-                    return null;
+                return p;
             }
             else
             {
@@ -101,12 +73,13 @@ namespace DeliveryServer.Controllers
             }
         }
 
+        #region f
         [Route("ChangeInfo")]
         [HttpGet]
         public void ChangeInfo([FromQuery] string email)
         {
 
         }
-
+        #endregion
     }
 }

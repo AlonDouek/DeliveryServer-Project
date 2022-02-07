@@ -73,13 +73,6 @@ namespace DeliveryServer.Controllers
             }
         }
 
-        #region f
-        [Route("ChangeInfo")]
-        [HttpGet]
-        public void ChangeInfo([FromQuery] string email)
-        {
-
-        }
-        #endregion
+        
     }
 }

@@ -63,7 +63,8 @@ CREATE TABLE "Restaurant"(
     "RestaurantID" INT NOT NULL,
     "MenuID" INT NOT NULL,
     "Name" NVARCHAR(255) NOT NULL,
-    "Description" INT NOT NULL,
+    "Description" NVARCHAR(255) NOT NULL,
+    "LogoUrl" NVARCHAR(255) NOT NULL,
     "OpeningHours" TIME NOT NULL,
     "ClosingHours" TIME NOT NULL
 );

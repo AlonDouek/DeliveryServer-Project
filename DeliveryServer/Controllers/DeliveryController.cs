@@ -24,8 +24,8 @@ namespace DeliveryServer.Controllers
         #endregion
 
         //do the thing in the config to make it work
-        //<binding protocol = "http" bindingInformation="*:16340:127.0.0.1" />
-        //<binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
+       //<binding protocol = "http" bindingInformation="*:16340:127.0.0.1" />
+       // <binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
 
         
 
@@ -34,11 +34,11 @@ namespace DeliveryServer.Controllers
         public User Login([FromQuery] string email, [FromQuery] string pass)
         {
             User user = context.Login(email, pass);
-
+            string a ="4";
             if (user != null)
             {
                 HttpContext.Session.SetObject("theUser", user);
-
+                
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
                 return user;

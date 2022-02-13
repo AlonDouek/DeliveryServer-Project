@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DeliveryServer.DTO;
 using DeliveryServerBL.Models;
 using System.IO;
-
+using System.Collections;
 
 namespace DeliveryServer.Controllers
 {
@@ -71,6 +71,14 @@ namespace DeliveryServer.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return null;
             }
+            
+        }
+        
+        [Route("getRestaurants")]
+        [HttpGet]
+        public List<Restaurant> GetResLst()
+        {
+            return context.GetRestaurantsList();
         }
 
         

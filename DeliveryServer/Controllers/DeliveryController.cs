@@ -51,29 +51,57 @@ namespace DeliveryServer.Controllers
             }
         }
 
+        #region get signup
+        //[Route("SignUp")]
+        //[HttpGet]
+        //public User SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
+        //{
+        //    User uDto = HttpContext.Session.GetObject<User>("user");
+
+        //    if (uDto == null)
+        //    {
+
+        //        User p = context.SignUp(Username, email, password, Address, PhoneNumber, CreditCard);
+
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+
+        //        return p;
+        //    }
+        //    else
+        //    {
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+        //        return null;
+        //    }
+
+        //}
+        #endregion
+        #region unnecessary?
+        //[Route("IsEmailExist")]
+        //[HttpPost]
+        //public bool IsEmailExist([FromBody] string email)
+        //{
+        //    return this.context.IsEmailExist(email);
+        //}
+        #endregion
+
         [Route("SignUp")]
-        [HttpGet]
-        public User SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
+        [HttpPost]
+        public bool SignUp([FromBody] User user)
         {
-            User uDto = HttpContext.Session.GetObject<User>("user");
-
-            if (uDto == null)
-            {
-               
-                User p = context.SignUp(Username, email, password, Address, PhoneNumber, CreditCard);
-
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-
-                return p;
-            }
+            
+            if (this.context.IsExist(user.Email))
+                return false;
             else
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return null;
+                this.context.Users.Add(user);
+                this.context.SaveChanges();
+                return true;
             }
-            
         }
-        
+       
+
+
+
         [Route("getRestaurants")]
         [HttpGet]
         public List<Restaurant> GetResLst()

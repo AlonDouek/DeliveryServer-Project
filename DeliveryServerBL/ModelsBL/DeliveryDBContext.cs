@@ -47,8 +47,12 @@ namespace DeliveryServerBL.Models
 
         
         }
-        
-        
+        public bool IsExist(string email)
+        {
+            User u = this.Users.Where(u => u.Email == email).FirstOrDefault();
+            return u != null;
+        }
+
         public List<Restaurant> GetRestaurantsList()
         {
             List<Restaurant> restaurants = new List<Restaurant>();

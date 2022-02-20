@@ -51,30 +51,7 @@ namespace DeliveryServer.Controllers
             }
         }
 
-        #region get signup
-        //[Route("SignUp")]
-        //[HttpGet]
-        //public User SignUp([FromQuery] string Username, [FromQuery] string password, [FromQuery] string email, [FromQuery] string Address, [FromQuery] string PhoneNumber, [FromQuery] string CreditCard)
-        //{
-        //    User uDto = HttpContext.Session.GetObject<User>("user");
-
-        //    if (uDto == null)
-        //    {
-
-        //        User p = context.SignUp(Username, email, password, Address, PhoneNumber, CreditCard);
-
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-
-        //        return p;
-        //    }
-        //    else
-        //    {
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-        //        return null;
-        //    }
-
-        //}
-        #endregion
+        
         #region unnecessary?
         //[Route("IsEmailExist")]
         //[HttpPost]

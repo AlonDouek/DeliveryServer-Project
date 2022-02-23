@@ -6,7 +6,8 @@ Use DeliveryDB
 Go
 
 CREATE TABLE "User"(
-    "UserID" INT NOT NULL,
+    --CHANGE LIKE THAT FOR INDEXES?
+    "UserID" INT IDENTITY(1,1) NOT NULL, 
     "Email" NVARCHAR(255) NOT NULL,
     "Username" NVARCHAR(255) NOT NULL,
     "Password" NVARCHAR(255) NOT NULL,

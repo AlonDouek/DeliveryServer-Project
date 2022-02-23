@@ -47,6 +47,28 @@ namespace DeliveryServerBL.Models
 
         
         }
+
+        public bool ChangeCredetials(string OGemail,string email, string pswd, string UserName, string Address, string PhoneNumber, string CreditCard)
+        {
+            User user = this.Users.Where(u => u.Email == OGemail).FirstOrDefault();
+
+            if (UserName != "")
+                user.Username = UserName;
+            if (Address != "")
+                user.Address = Address;
+            if (PhoneNumber != "")
+                user.PhoneNumber = PhoneNumber;
+            if (CreditCard != "")
+                user.CreditCard = CreditCard;
+            if (pswd != "")
+                user.Password = pswd;
+            if (email != "")
+                user.Email = email;
+
+            SaveChanges();
+            return true;
+
+        }
         public bool IsExist(string email)
         {
             User u = this.Users.Where(u => u.Email == email).FirstOrDefault();

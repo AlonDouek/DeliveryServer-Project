@@ -19,17 +19,20 @@ namespace DeliveryServer.DTO
         public string Username { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
-        public int PhoneNumber { get; set; }
-        public int CreditCard { get; set; }
+        public String PhoneNumber { get; set; }
+        public String CreditCard { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public UserDTO(User p)
+        public UserDTO(User u)
         {
-            UserId = p.UserId;
-            Username = p.Username;
-            Email = p.Email;
-            Password = p.Password;
+            this.Email = u.Email;
+            this.Username = u.Username;
+            this.Password = u.Password;
+            this.Address = u.Address;
+            this.PhoneNumber = u.PhoneNumber;
+            this.CreditCard = u.CreditCard;
+
         }
     }
 }

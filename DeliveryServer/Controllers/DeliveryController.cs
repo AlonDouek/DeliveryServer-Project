@@ -8,6 +8,7 @@ using DeliveryServer.DTO;
 using DeliveryServerBL.Models;
 using System.IO;
 using System.Collections;
+using DeliveryApp.DTO;
 
 namespace DeliveryServer.Controllers
 {
@@ -75,8 +76,23 @@ namespace DeliveryServer.Controllers
                 return true;
             }
         }
+
        
 
+        [Route("ChangeCredentials")]
+        [HttpPost]
+        public bool ChangeCredentials([FromBody] ChangeDTO changeDTO)
+        {
+
+            if (this.context.IsExist(changeDTO.CuserEmail))
+                return false;
+            else
+            {
+                this.context.ChangeCredetials(changeDTO.CuserEmail, changeDTO.Nuser.Email, changeDTO.Nuser.Password, changeDTO.Nuser.Username, changeDTO.Nuser.Address, changeDTO.Nuser.PhoneNumber, changeDTO.Nuser.CreditCard);
+                this.context.SaveChanges();
+                return true;
+            }
+        }
 
 
         [Route("getRestaurants")]

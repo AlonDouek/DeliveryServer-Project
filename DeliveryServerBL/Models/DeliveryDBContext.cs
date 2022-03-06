@@ -1,5 +1,4 @@
 ﻿using System;
-using DeliveryServerBL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -18,8 +17,8 @@ namespace DeliveryServerBL.Models
         {
         }
 
+        public virtual DbSet<ItemCategory> ItemCategories { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
-        public virtual DbSet<MenuCatagory> MenuCatagories { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
@@ -40,15 +39,31 @@ namespace DeliveryServerBL.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
 
+            modelBuilder.Entity<ItemCategory>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId)
+                    .HasName("itemcategory_categoryid_primary");
+
+                entity.ToTable("ItemCategory");
+
+                entity.HasIndex(e => e.CategoryId, "itemcategory_categoryid_index");
+
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.ToTable("Menu");
 
+                entity.HasIndex(e => new { e.RestaurantId, e.MenuId }, "menu_restaurantid_menuid_index");
+
                 entity.Property(e => e.MenuId)
                     .ValueGeneratedNever()
                     .HasColumnName("MenuID");
-
-                entity.Property(e => e.Name).HasMaxLength(255);
 
                 entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
@@ -59,45 +74,21 @@ namespace DeliveryServerBL.Models
                     .HasConstraintName("menu_restaurantid_foreign");
             });
 
-            modelBuilder.Entity<MenuCatagory>(entity =>
-            {
-                entity.HasKey(e => e.CatagoryId)
-                    .HasName("menucatagory_catagoryid_primary");
-
-                entity.ToTable("MenuCatagory");
-
-                entity.HasIndex(e => e.CatagoryId, "menucatagory_catagoryid_index");
-
-                entity.HasIndex(e => e.MenuId, "menucatagory_menuid_index");
-
-                entity.Property(e => e.CatagoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CatagoryID");
-
-                entity.Property(e => e.MenuId).HasColumnName("MenuID");
-
-                entity.HasOne(d => d.Menu)
-                    .WithMany(p => p.MenuCatagories)
-                    .HasForeignKey(d => d.MenuId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("menucatagory_menuid_foreign");
-            });
-
             modelBuilder.Entity<MenuItem>(entity =>
             {
                 entity.ToTable("MenuItem");
 
-                entity.HasIndex(e => e.CatagoryId, "menuitem_catagoryid_index");
+                entity.HasIndex(e => e.MenuId, "menuitem_menuid_index");
 
                 entity.HasIndex(e => e.MenuItemId, "menuitem_menuitemid_index");
 
-                entity.Property(e => e.MenuItemId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MenuItemID");
+                entity.Property(e => e.MenuItemId).HasColumnName("MenuItemID");
 
-                entity.Property(e => e.CatagoryId).HasColumnName("CatagoryID");
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.Image).HasMaxLength(255);
+
+                entity.Property(e => e.MenuId).HasColumnName("MenuID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -105,11 +96,17 @@ namespace DeliveryServerBL.Models
 
                 entity.Property(e => e.Price).HasColumnType("decimal(8, 2)");
 
-                entity.HasOne(d => d.Catagory)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.MenuItems)
-                    .HasForeignKey(d => d.CatagoryId)
+                    .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("menuitem_catagoryid_foreign");
+                    .HasConstraintName("menuitem_categoryid_foreign");
+
+                entity.HasOne(d => d.Menu)
+                    .WithMany(p => p.MenuItems)
+                    .HasForeignKey(d => d.MenuId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("menuitem_menuid_foreign");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -122,9 +119,7 @@ namespace DeliveryServerBL.Models
 
                 entity.HasIndex(e => e.UserId, "order_userid_index");
 
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Note)
                     .IsRequired()
@@ -162,9 +157,7 @@ namespace DeliveryServerBL.Models
 
                 entity.HasIndex(e => e.OrderId, "orderitem_orderid_index");
 
-                entity.Property(e => e.ItemId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ItemID");
+                entity.Property(e => e.ItemId).HasColumnName("ItemID");
 
                 entity.Property(e => e.MenuItemId).HasColumnName("MenuItemID");
 
@@ -199,28 +192,16 @@ namespace DeliveryServerBL.Models
             {
                 entity.ToTable("Restaurant");
 
-                entity.HasIndex(e => e.MenuId, "restaurant_menuid_index");
-
                 entity.HasIndex(e => e.Name, "restaurant_name_unique")
                     .IsUnique();
 
                 entity.HasIndex(e => e.RestaurantId, "restaurant_restaurantid_index");
 
-                entity.Property(e => e.RestaurantId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("RestaurantID");
-
-                entity.Property(e => e.MenuId).HasColumnName("MenuID");
+                entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255);
-
-                entity.HasOne(d => d.Menu)
-                    .WithMany(p => p.Restaurants)
-                    .HasForeignKey(d => d.MenuId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("restaurant_menuid_foreign");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -235,15 +216,9 @@ namespace DeliveryServerBL.Models
 
                 entity.HasIndex(e => e.UserId, "user_userid_index");
 
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.CreditCard)
                     .IsRequired()
                     .HasMaxLength(255);
 
@@ -252,10 +227,6 @@ namespace DeliveryServerBL.Models
                     .HasMaxLength(255);
 
                 entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(255);
 

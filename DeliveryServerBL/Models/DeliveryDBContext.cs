@@ -211,14 +211,19 @@ namespace DeliveryServerBL.Models
                 entity.HasIndex(e => e.Email, "user_email_unique")
                     .IsUnique();
 
-                entity.HasIndex(e => e.PhoneNumber, "user_phonenumber_unique")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.UserId, "user_userid_index");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.CreditCard)
                     .IsRequired()
                     .HasMaxLength(255);
 

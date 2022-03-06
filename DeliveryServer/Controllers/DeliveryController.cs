@@ -25,10 +25,10 @@ namespace DeliveryServer.Controllers
         #endregion
 
         //do the thing in the config to make it work
-       //<binding protocol = "http" bindingInformation="*:16340:127.0.0.1" />
-       // <binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
+        //<binding protocol = "http" bindingInformation="*:16340:127.0.0.1" />
+        // <binding protocol = "https" bindingInformation="*:44323:127.0.0.1" />
 
-        
+
 
         [Route("Login")]
         [HttpGet]

@@ -80,18 +80,19 @@ namespace DeliveryServer.Controllers
        
 
         [Route("ChangeCredentials")]
-        [HttpPost]
-        public bool ChangeCredentials([FromBody] ChangeDTO changeDTO)
-        {
-
-            if (this.context.IsExist(changeDTO.CuserEmail))
+        [HttpGet]
+        public bool ChangeCredentials([FromQuery] string CUEmail, [FromQuery] string Email, [FromQuery] string Password, [FromQuery] string Username, [FromQuery] string Address, [FromQuery] string CreditCard, [FromQuery] string PhoneNumber)
+        { 
+            #region f
+            if (!(this.context.IsExist(CUEmail)))
                 return false;
             else
             {
-                this.context.ChangeCredetials(changeDTO.CuserEmail, changeDTO.Nuser.Email, changeDTO.Nuser.Password, changeDTO.Nuser.Username, changeDTO.Nuser.Address, changeDTO.Nuser.PhoneNumber, changeDTO.Nuser.CreditCard);
+                this.context.ChangeCredetials(CUEmail, Email, Password, Username, Address, PhoneNumber, CreditCard);
                 this.context.SaveChanges();
                 return true;
             }
+            #endregion
         }
 
 

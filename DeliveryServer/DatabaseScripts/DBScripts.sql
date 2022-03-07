@@ -24,7 +24,7 @@ CREATE UNIQUE INDEX "user_email_unique" ON
 CREATE UNIQUE INDEX "user_phonenumber_unique" ON
     "User"("PhoneNumber");
 CREATE TABLE "OrderStatus"(
-    "StatusID" INT NOT NULL,
+    "StatusID" INT Identity(1,1) NOT NULL,
     "Name" NVARCHAR(255) NOT NULL
 );
 CREATE INDEX "orderstatus_statusid_index" ON
@@ -64,6 +64,7 @@ CREATE TABLE "Restaurant"(
     "RestaurantID" INT NOT NULL IDENTITY(1, 1),
     "Name" NVARCHAR(255) NOT NULL,
     "Description" NVARCHAR(255) NOT NULL,
+    "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Rp.jpg',
     "OpeningHours" TIME NOT NULL,
     "ClosingHours" TIME NOT NULL
 );
@@ -73,8 +74,9 @@ ALTER TABLE
     "Restaurant" ADD CONSTRAINT "restaurant_restaurantid_primary" PRIMARY KEY("RestaurantID");
 CREATE UNIQUE INDEX "restaurant_name_unique" ON
     "Restaurant"("Name");
+
 CREATE TABLE "Menu"(
-    "MenuID" INT NOT NULL,
+    "MenuID" INT Identity(1,1) NOT NULL,
     "RestaurantID" INT NOT NULL
 );
 CREATE INDEX "menu_restaurantid_menuid_index" ON
@@ -88,7 +90,7 @@ CREATE TABLE "MenuItem"(
     "Name" NVARCHAR(255) NOT NULL,
     "Description" NVARCHAR(255) NOT NULL,
     "Price" DECIMAL(8, 2) NOT NULL,
-    "Image" NVARCHAR(255) NULL
+    "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Ip.jpg'
 );
 CREATE INDEX "menuitem_menuitemid_index" ON
     "MenuItem"("MenuItemID");
@@ -127,3 +129,40 @@ ALTER TABLE
    VALUES ('Drinks');
    INSERT INTO [ItemCategory] ([Name])
    VALUES ('Desserts');
+
+   INSERT INTO [Restaurant] ([Name],[Description],[OpeningHours],[ClosingHours])
+   VALUES ('PPizzaPasta','Too lazy to write anything series so I will just write some staff and leave soon, maybe? probably? i think so? ,anyhow this place has pizza and pasta like the name suggest, ......,not sure what you expected thats all (includes variations)','08:30:00.0000000' , '23:00:00.0000000');
+
+INSERT INTO [Menu]([RestaurantID])
+	VALUES(2) 
+
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,1,'Focaccia','tasty Focaccia bread with olive oil,salt and herbs on top very tasty',12.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,2,'Cool Italian salad','tasty salad with tomato, sprouts, radish, lettuce ,olive oil various herbs and spices',18.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Cool Pasta cheese','tasty pasta with various cheeses and spices',35.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Cool Pasta for rich people','tasty pasta with various expensive cheeses and spices',65.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Cool Pasta cheese and veggie','tasty pasta with various cheeses , vegetables,and spices',39.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Cool Pasta tomato','tasty pasta with tomato sauce and herbs',34.00) 
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Pizza Margarita','regular pizza with basil included',32.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Pizza Expensive Margarita','regular pizza with basil included but really expensive',932.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,3,'Pepperoni pizza','regular pizza with Pepperoni on top',34.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,4,'Water','regular water',4.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,4,'Sparkling Water','regular Sparkling water',4.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,4,'Juice','Grape Juice, Orange Juice, Apple Juice,',7.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,4,'Sparkling Juice','Sparkling Grape Juice, Orange Juice, Apple Juice,',7.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,5,'Choco Chocolate cake','chocolate cake with more chocolate on top cant be bothered to write more',23.00)
+INSERT INTO [MenuItem]([MenuID],[CategoryID],[Name],[Description],Price)
+	VALUES(1,5,'Expensive Chocolate cake','chocolate cake with more chocolate on top but expensive',923.00)

@@ -86,6 +86,10 @@ namespace DeliveryServerBL.Models
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.MenuId).HasColumnName("MenuID");
@@ -199,6 +203,10 @@ namespace DeliveryServerBL.Models
 
                 entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255);
@@ -211,15 +219,14 @@ namespace DeliveryServerBL.Models
                 entity.HasIndex(e => e.Email, "user_email_unique")
                     .IsUnique();
 
+                entity.HasIndex(e => e.PhoneNumber, "user_phonenumber_unique")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.UserId, "user_userid_index");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Address)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(255);
 
@@ -232,6 +239,10 @@ namespace DeliveryServerBL.Models
                     .HasMaxLength(255);
 
                 entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(255);
 

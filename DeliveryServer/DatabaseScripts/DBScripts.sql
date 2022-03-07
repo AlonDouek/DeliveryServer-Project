@@ -63,7 +63,7 @@ ALTER TABLE
 CREATE TABLE "Restaurant"(
     "RestaurantID" INT NOT NULL IDENTITY(1, 1),
     "Name" NVARCHAR(255) NOT NULL,
-    "Description" INT NOT NULL,
+    "Description" NVARCHAR(255) NOT NULL,
     "OpeningHours" TIME NOT NULL,
     "ClosingHours" TIME NOT NULL
 );
@@ -86,7 +86,7 @@ CREATE TABLE "MenuItem"(
     "MenuID" INT NOT NULL,
     "CategoryID" INT NOT NULL,
     "Name" NVARCHAR(255) NOT NULL,
-    "Description" INT NOT NULL,
+    "Description" NVARCHAR(255) NOT NULL,
     "Price" DECIMAL(8, 2) NOT NULL,
     "Image" NVARCHAR(255) NULL
 );

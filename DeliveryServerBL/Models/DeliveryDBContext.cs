@@ -61,9 +61,7 @@ namespace DeliveryServerBL.Models
 
                 entity.HasIndex(e => new { e.RestaurantId, e.MenuId }, "menu_restaurantid_menuid_index");
 
-                entity.Property(e => e.MenuId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MenuID");
+                entity.Property(e => e.MenuId).HasColumnName("MenuID");
 
                 entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
@@ -90,7 +88,10 @@ namespace DeliveryServerBL.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Image).HasMaxLength(255);
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("('default_Ip.jpg')");
 
                 entity.Property(e => e.MenuId).HasColumnName("MenuID");
 
@@ -183,9 +184,7 @@ namespace DeliveryServerBL.Models
 
                 entity.HasIndex(e => e.StatusId, "orderstatus_statusid_index");
 
-                entity.Property(e => e.StatusId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("StatusID");
+                entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -207,7 +206,16 @@ namespace DeliveryServerBL.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("('default_Rp.jpg')");
+
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ResAddress)
                     .IsRequired()
                     .HasMaxLength(255);
             });

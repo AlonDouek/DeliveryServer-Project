@@ -48,21 +48,21 @@ namespace DeliveryServerBL.Models
         
         }
 
-        public bool ChangeCredetials(string OGemail,string email, string pswd, string UserName, string Address, string PhoneNumber, string CreditCard)
+        public bool ChangeCredetials(string OGemail,string email, string Password, string UserName, string Address, string PhoneNumber, string CreditCard)
         {
             User user = this.Users.Where(u => u.Email == OGemail).FirstOrDefault();
 
-            if (UserName != "")
+            if (UserName != null)
                 user.Username = UserName;
-            if (Address != "")
+            if (Address != null)
                 user.Address = Address;
-            if (PhoneNumber != "")
+            if (PhoneNumber != null)
                 user.PhoneNumber = PhoneNumber;
-            if (CreditCard != "")
+            if (CreditCard != null)
                 user.CreditCard = CreditCard;
-            if (pswd != "")
-                user.Password = pswd;
-            if (email != "")
+            if (Password != "")
+                user.Password = Password;
+            if (email != null)
                 user.Email = email;
 
             SaveChanges();

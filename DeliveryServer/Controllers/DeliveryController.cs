@@ -94,7 +94,25 @@ namespace DeliveryServer.Controllers
             }
             #endregion
         }
+        [Route("Logout")]
+        [HttpGet]
+        public void LogOut()
+        {
+            
+            if (!HttpContext.Session.Equals(null))
+            {
+                HttpContext.Session.Clear();
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
+                
+            }
+            else
+            {
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                
+            }
+        }
 
         [Route("getRestaurants")]
         [HttpGet]

@@ -64,6 +64,7 @@ CREATE TABLE "Restaurant"(
     "RestaurantID" INT NOT NULL IDENTITY(1, 1),
     "Name" NVARCHAR(255) NOT NULL,
     "Description" NVARCHAR(255) NOT NULL,
+    "ResAddress" NVARCHAR(255) NOT NULL,
     "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Rp.jpg',
     "OpeningHours" TIME NOT NULL,
     "ClosingHours" TIME NOT NULL

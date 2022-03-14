@@ -60,7 +60,7 @@ namespace DeliveryServerBL.Models
                 user.PhoneNumber = PhoneNumber;
             if (CreditCard != null)
                 user.CreditCard = CreditCard;
-            if (Password != "")
+            if (Password != null)
                 user.Password = Password;
             if (email != null)
                 user.Email = email;

@@ -94,25 +94,28 @@ namespace DeliveryServer.Controllers
             }
             #endregion
         }
-        [Route("Logout")]
-        [HttpGet]
-        public void LogOut()
-        {
+
+        #region fff
+        //[Route("Logout")]
+        //[HttpGet]
+        //public void LogOut()
+        //{
             
-            if (!HttpContext.Session.Equals(null))
-            {
-                HttpContext.Session.Clear();
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+        //    if (!HttpContext.Session.Equals(null))
+        //    {
+        //        HttpContext.Session.Clear();
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
                 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
 
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 
-            }
-        }
+        //    }
+        //}
+        #endregion
 
         [Route("getRestaurants")]
         [HttpGet]

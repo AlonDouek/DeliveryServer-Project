@@ -85,5 +85,11 @@ namespace DeliveryServerBL.Models
             //}
             return restaurants;
         }
+        public Menu GetMenu(int RestID)
+        {
+            Menu m = this.Menus.Where(u => u.RestaurantId == RestID).FirstOrDefault();
+            return m;
+        }
+
     }
 }

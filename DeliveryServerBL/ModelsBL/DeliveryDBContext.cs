@@ -77,11 +77,12 @@ namespace DeliveryServerBL.Models
 
         public List<Restaurant> GetRestaurantsList()
         {
-            List<Restaurant> restaurants = new List<Restaurant>();
-            foreach (Restaurant m in this.Restaurants)
-            {
-                restaurants.Add(m);
-            }
+            List<Restaurant> restaurants = this.Restaurants.ToList();
+            //List <Restaurant> restaurants = new List<Restaurant>();
+            //foreach (Restaurant m in this.Restaurants)
+            //{
+            //    restaurants.Add(m);
+            //}
             return restaurants;
         }
     }

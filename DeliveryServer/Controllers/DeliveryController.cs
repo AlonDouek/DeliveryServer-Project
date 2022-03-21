@@ -9,6 +9,7 @@ using DeliveryServerBL.Models;
 using System.IO;
 using System.Collections;
 using DeliveryApp.DTO;
+using Newtonsoft.Json;
 
 namespace DeliveryServer.Controllers
 {
@@ -83,7 +84,6 @@ namespace DeliveryServer.Controllers
         [HttpGet]
         public bool ChangeCredentials([FromQuery] string CUEmail, [FromQuery] string Email, [FromQuery] string Password, [FromQuery] string Username, [FromQuery] string Address, [FromQuery] string CreditCard, [FromQuery] string PhoneNumber)
         { 
-            #region f
             if (!(this.context.IsExist(CUEmail)))
                 return false;
             else
@@ -92,7 +92,7 @@ namespace DeliveryServer.Controllers
                 this.context.SaveChanges();
                 return true;
             }
-            #endregion
+            
         }
 
         #region fff
@@ -119,9 +119,26 @@ namespace DeliveryServer.Controllers
 
         [Route("getRestaurants")]
         [HttpGet]
-        public List<Restaurant> GetResLst()
+        public string GetResList()
         {
-            return context.GetRestaurantsList();
+            List<Restaurant> restaurants = context.GetRestaurantsList();
+            try
+            {
+                JsonSerializerSettings options = new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.All
+                };
+
+                string json = JsonConvert.SerializeObject(restaurants , options);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return json;
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
         }
 
         

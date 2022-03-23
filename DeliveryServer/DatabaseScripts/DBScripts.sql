@@ -65,6 +65,7 @@ CREATE TABLE "Restaurant"(
     "Name" NVARCHAR(255) NOT NULL,
     "Description" NVARCHAR(255) NOT NULL,
     "ResAddress" NVARCHAR(255) NOT NULL,
+    "PhoneNumber" NVARCHAR(255) NOT NULL,
     "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Rp.jpg',
     "OpeningHours" TIME NOT NULL, 
     "ClosingHours" TIME NOT NULL
@@ -131,8 +132,8 @@ ALTER TABLE
    INSERT INTO [ItemCategory] ([Name])
    VALUES ('Desserts');
 
-   INSERT INTO [Restaurant] ([Name],[Description],[ResAddress],[OpeningHours],[ClosingHours])
-   VALUES ('PPizzaPasta','Too lazy to write anything series so I will just write some staff and leave soon, maybe? probably? i think so? ,anyhow this place has pizza and pasta like the name suggest, ......,not sure what you expected thats all (includes variations)','{Change when necessary}','08:30:00.0000000' , '23:00:00.0000000');
+   INSERT INTO [Restaurant] ([Name],[PhoneNumber],[Description],[ResAddress],[OpeningHours],[ClosingHours])
+   VALUES ('PPizzaPasta','096621548','Too lazy to write anything series so I will just write some staff and leave soon, maybe? probably? i think so? ,anyhow this place has pizza and pasta like the name suggest, ......,not sure what you expected thats all (includes variations)','{Change when necessary}','08:30:00.0000000' , '23:00:00.0000000');
 
 INSERT INTO [Menu]([RestaurantID])
 	VALUES(1) 

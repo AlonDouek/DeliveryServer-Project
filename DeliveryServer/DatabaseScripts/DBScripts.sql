@@ -66,7 +66,7 @@ CREATE TABLE "Restaurant"(
     "Description" NVARCHAR(255) NOT NULL,
     "ResAddress" NVARCHAR(255) NOT NULL,
     "PhoneNumber" NVARCHAR(255) NOT NULL,
-    "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Rp.jpg',
+    "Image" NVARCHAR(255) NOT NULL DEFAULT 'https://www.pinterest.com/pin/859343172643202710/',
     "OpeningHours" TIME NOT NULL, 
     "ClosingHours" TIME NOT NULL
 );
@@ -92,7 +92,7 @@ CREATE TABLE "MenuItem"(
     "Name" NVARCHAR(255) NOT NULL,
     "Description" NVARCHAR(255) NOT NULL,
     "Price" DECIMAL(8, 2) NOT NULL,
-    "Image" NVARCHAR(255) NOT NULL DEFAULT 'default_Ip.jpg'
+    "Image" NVARCHAR(255) NOT NULL DEFAULT 'https://pngtree.com/freepng/western-steak-cartoon-food-design_4032509.html'
 );
 CREATE INDEX "menuitem_menuitemid_index" ON
     "MenuItem"("MenuItemID");

@@ -53,15 +53,8 @@ namespace DeliveryServer.Controllers
             }
         }
 
-        
-        #region unnecessary?
-        //[Route("IsEmailExist")]
-        //[HttpPost]
-        //public bool IsEmailExist([FromBody] string email)
-        //{
-        //    return this.context.IsEmailExist(email);
-        //}
-        #endregion
+
+      
 
         [Route("SignUp")]
         [HttpPost]
@@ -95,27 +88,6 @@ namespace DeliveryServer.Controllers
             
         }
 
-        #region fff
-        //[Route("Logout")]
-        //[HttpGet]
-        //public void LogOut()
-        //{
-            
-        //    if (!HttpContext.Session.Equals(null))
-        //    {
-        //        HttpContext.Session.Clear();
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-
-                
-        //    }
-        //    else
-        //    {
-
-        //        Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                
-        //    }
-        //}
-        #endregion
 
         [Route("getRestaurants")]
         [HttpGet]

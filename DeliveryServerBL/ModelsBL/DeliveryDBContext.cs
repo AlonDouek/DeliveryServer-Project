@@ -85,6 +85,16 @@ namespace DeliveryServerBL.Models
             //}
             return restaurants;
         }
+        public List<Restaurant> GetMenusList()
+        {
+            List<Restaurant> Menus = this.Menus.ToList();
+            //List <Restaurant> restaurants = new List<Restaurant>();
+            //foreach (Restaurant m in this.Restaurants)
+            //{
+            //    restaurants.Add(m);
+            //}
+            return Menus;
+        }
         public Menu GetMenu(int RestID)
         {
             Menu m = this.Menus.Where(u => u.RestaurantId == RestID).FirstOrDefault();

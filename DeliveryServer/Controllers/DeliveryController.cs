@@ -113,11 +113,11 @@ namespace DeliveryServer.Controllers
             }
         }
 
-        [Route("getMenu")]
+        [Route("getMenus")]
         [HttpGet]
         public string GetMenuList()
         {
-            List<Restaurant> Menus = context.GetMenusList();
+            List<Menu> Menus = context.GetMenusList();
             try
             {
                 JsonSerializerSettings options = new JsonSerializerSettings
@@ -125,7 +125,7 @@ namespace DeliveryServer.Controllers
                     PreserveReferencesHandling = PreserveReferencesHandling.All
                 };
 
-                string json = JsonConvert.SerializeObject(restaurants, options);
+                string json = JsonConvert.SerializeObject(Menus, options);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return json;

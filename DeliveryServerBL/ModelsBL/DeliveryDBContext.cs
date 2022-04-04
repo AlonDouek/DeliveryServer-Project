@@ -15,7 +15,7 @@ namespace DeliveryServerBL.Models
         public User Login(string email, string pswd)
         {
             User user = this.Users.Where(u => u.Email == email && u.Password == pswd).FirstOrDefault();
-            //
+            
             return user;
 
         }
@@ -78,21 +78,13 @@ namespace DeliveryServerBL.Models
         public List<Restaurant> GetRestaurantsList()
         {
             List<Restaurant> restaurants = this.Restaurants.ToList();
-            //List <Restaurant> restaurants = new List<Restaurant>();
-            //foreach (Restaurant m in this.Restaurants)
-            //{
-            //    restaurants.Add(m);
-            //}
+            
             return restaurants;
         }
         public List<Menu> GetMenusList()
         {
             List<Menu> Menus = this.Menus.ToList();
-            //List <Restaurant> restaurants = new List<Restaurant>();
-            //foreach (Restaurant m in this.Restaurants)
-            //{
-            //    restaurants.Add(m);
-            //}
+            
             return Menus;
         }
         public Menu GetMenu(int RestID)

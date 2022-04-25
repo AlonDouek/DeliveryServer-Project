@@ -81,7 +81,7 @@ namespace DeliveryServerBL.Models
             
             return restaurants;
         }
-        public List<Menu> GetMenusList()
+        public List<Menu> GetMenus()
         {
             List<Menu> Menus = this.Menus.ToList();
             
@@ -92,6 +92,11 @@ namespace DeliveryServerBL.Models
             Menu m = this.Menus.Where(u => u.RestaurantId == RestID).FirstOrDefault();
             return m;
         }
+        public int GetRestaurantID(string Name)
+        {
+            Restaurant sad = (Restaurant)this.Restaurants.Where(r => r.Name == Name);
 
+            return sad.RestaurantId;
+        }
     }
 }

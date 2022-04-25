@@ -117,7 +117,7 @@ namespace DeliveryServer.Controllers
         [HttpGet]
         public string GetMenuList()
         {
-            List<Menu> Menus = context.GetMenusList();
+            List<Menu> Menus = context.GetMenus();
             try
             {
                 JsonSerializerSettings options = new JsonSerializerSettings
@@ -138,5 +138,28 @@ namespace DeliveryServer.Controllers
         }
 
 
+        [Route("getMenusByRes")]
+        [HttpGet]
+        public string GetMenusByRes([FromQuery]string Name)
+        {
+            Menu Menu = context.GetMenu(context.GetRestaurantID(Name));
+            try
+            {
+                JsonSerializerSettings options = new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.All
+                };
+
+                string json = JsonConvert.SerializeObject(Menu, options);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return json;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
     }
 }

@@ -161,5 +161,28 @@ namespace DeliveryServer.Controllers
                 return null;
             }
         }
+        [Route("GetItemsByMenuID")]
+        [HttpGet]
+        public string GetItemsByMenuID([FromQuery] int MenuID)
+        {
+            List<MenuItem> items = context.GetItemsByMenuID(MenuID);
+            try
+            {
+                JsonSerializerSettings options = new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.All
+                };
+
+                string json = JsonConvert.SerializeObject(items, options);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return json;
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+                return null;
+            }
+        }
     }
 }

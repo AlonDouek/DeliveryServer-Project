@@ -90,6 +90,7 @@ namespace DeliveryServerBL.Models
         public Menu GetMenu(int RestID)
         {
             Menu m = this.Menus.Where(u => u.RestaurantId == RestID).FirstOrDefault();
+            GetSortedMenu(m);
             return m;
         }
         public int GetRestaurantID(string Name)
@@ -97,6 +98,18 @@ namespace DeliveryServerBL.Models
             Restaurant sad = (Restaurant)this.Restaurants.Where(r => r.Name == Name);
 
             return sad.RestaurantId;
+        }
+        public void GetSortedMenu(Menu vv)
+        {
+            vv.MenuItems = (ICollection<MenuItem>)vv.MenuItems.OrderBy(p => p.CategoryId);
+           
+        }
+        
+        public List<MenuItem> GetItemsByMenuID(int MeID)
+        {
+            List<MenuItem> a = (List<MenuItem>)this.MenuItems.Where(d => d.MenuId == MeID).OrderBy(p => p.CategoryId).ToList();
+          
+            return a;
         }
     }
 }

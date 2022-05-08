@@ -36,7 +36,7 @@ namespace DeliveryServer.Controllers
         public User Login([FromQuery] string email, [FromQuery] string pass)
         {
             User user = context.Login(email, pass);
-            string a ="4";
+            //s
             if (user != null)
             {
                 HttpContext.Session.SetObject("theUser", user);
@@ -140,9 +140,9 @@ namespace DeliveryServer.Controllers
 
         [Route("getMenusByRes")]
         [HttpGet]
-        public string GetMenusByRes([FromQuery]string Name)
+        public string GetMenusByRes([FromQuery]int ID)
         {
-            Menu Menu = context.GetMenu(context.GetRestaurantID(Name));
+            Menu Menu = context.GetMenu(ID);
             try
             {
                 JsonSerializerSettings options = new JsonSerializerSettings
